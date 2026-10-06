@@ -1,0 +1,12 @@
+.build/
+.dmg-root/
+dist/
+*.app/
+*.dmg
+AppIcon.iconset/
+.DS_Store
+
+# Local IDE and signing artifacts
+.swiftpm/
+DerivedData/
+*.xcuserstate

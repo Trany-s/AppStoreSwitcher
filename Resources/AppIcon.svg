@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#101B4D"/><stop offset="0.55" stop-color="#2459D8"/><stop offset="1" stop-color="#7137C8"/></linearGradient>
+    <linearGradient id="key" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#CBE7FF"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#050A25" flood-opacity=".35"/></filter>
+  </defs>
+  <rect x="24" y="24" width="976" height="976" rx="218" fill="url(#bg)"/>
+  <circle cx="512" cy="512" r="330" fill="#FFFFFF" opacity=".06"/>
+  <g fill="none" stroke="#A8E7FF" stroke-width="48" stroke-linecap="round" stroke-linejoin="round" opacity=".95"><path d="M318 452a226 226 0 0 1 370-102l50 46"/><path d="M738 572a226 226 0 0 1-370 102l-50-46"/></g>
+  <g fill="#A8E7FF"><path d="m724 310 78 84-110 18z"/><path d="m300 714-78-84 110-18z"/></g>
+  <g filter="url(#shadow)"><circle cx="512" cy="500" r="128" fill="url(#key)"/><path d="M512 474a42 42 0 1 0-42-42 42 42 0 0 0 42 42Zm-24 20h48l35 166h-118Z" fill="#1D4FC1"/></g>
+</svg>

@@ -1,0 +1,35 @@
+#!/bin/zsh
+set -euo pipefail
+
+PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$PROJECT_DIR"
+
+swift build -c release
+APP_DIR="$PROJECT_DIR/App Store 账号管理.app"
+rm -rf "$APP_DIR"
+mkdir -p "$APP_DIR/Contents/MacOS" "$APP_DIR/Contents/Resources"
+cp .build/arm64-apple-macosx/release/AppStoreSwitcher "$APP_DIR/Contents/MacOS/AppStoreSwitcher"
+cp Info.plist "$APP_DIR/Contents/Info.plist"
+ICONSET_DIR="$PROJECT_DIR/AppIcon.iconset"
+rm -rf "$ICONSET_DIR"
+mkdir -p "$ICONSET_DIR"
+rsvg-convert -w 16 -h 16 Resources/AppIcon.svg -o "$ICONSET_DIR/icon_16x16.png"
+rsvg-convert -w 32 -h 32 Resources/AppIcon.svg -o "$ICONSET_DIR/icon_16x16@2x.png"
+rsvg-convert -w 32 -h 32 Resources/AppIcon.svg -o "$ICONSET_DIR/icon_32x32.png"
+rsvg-convert -w 64 -h 64 Resources/AppIcon.svg -o "$ICONSET_DIR/icon_32x32@2x.png"
+rsvg-convert -w 128 -h 128 Resources/AppIcon.svg -o "$ICONSET_DIR/icon_128x128.png"
+rsvg-convert -w 256 -h 256 Resources/AppIcon.svg -o "$ICONSET_DIR/icon_128x128@2x.png"
+rsvg-convert -w 256 -h 256 Resources/AppIcon.svg -o "$ICONSET_DIR/icon_256x256.png"
+rsvg-convert -w 512 -h 512 Resources/AppIcon.svg -o "$ICONSET_DIR/icon_256x256@2x.png"
+rsvg-convert -w 512 -h 512 Resources/AppIcon.svg -o "$ICONSET_DIR/icon_512x512.png"
+rsvg-convert -w 1024 -h 1024 Resources/AppIcon.svg -o "$ICONSET_DIR/icon_512x512@2x.png"
+iconutil --convert icns "$ICONSET_DIR" --output "$APP_DIR/Contents/Resources/AppIcon.icns"
+codesign --force --deep --sign - "$APP_DIR"
+DMG_ROOT="$PROJECT_DIR/.dmg-root"
+rm -rf "$DMG_ROOT"
+mkdir -p "$DMG_ROOT"
+cp -R "$APP_DIR" "$DMG_ROOT/"
+ln -s /Applications "$DMG_ROOT/Applications"
+hdiutil create -volname "App Store 账号管理" -srcfolder "$DMG_ROOT" -ov -format UDZO "$PROJECT_DIR/App Store 账号管理.dmg" >/dev/null
+echo "已生成: $APP_DIR"
+echo "已生成: $PROJECT_DIR/App Store 账号管理.dmg"
